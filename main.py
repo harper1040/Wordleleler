@@ -16,28 +16,28 @@ Six = ["figure", "weapon", "stairs", "hunter", "bottle", "mantle", "camera", "by
        "pliers", "basket", "soccer", "update", "native", "bridge", "export", "office", 
        "window", "supply", "pencil", "reader", "forget", "zinnia", "flower", "please",
        "retain", "public", "folder", "coupon", "ignite", "burner", "column", "drawer", "hearth", 
-       "spouse", "lonely", "doctor", "falcon", "fabric",]
+       "spouse", "lonely", "doctor", "falcon", "fabric", "police",]
 
-Seven = ["vehicle", "firearm", "setting", "roadway", "highway", "drillbit", "caution", "recycle", 
+Seven = ["vehicle", "firearm", "setting", "roadway", "highway", "caution", "recycle",
          "battery", "surface", "squeeze", "contact", "discard", "medical", "product", "minimum",
          "maximum", "machine", "network", "connect", "printer", "program", "sawdust", "android",
          "propane", "monitor", "fallout", "digital", "plywood", "upgrade", "browser", "dolphin",
-         "project", "display", "malware", "shortcut", "charger", "cleaner", "measure", "reading",
+         "project", "display", "malware", "charger", "cleaner", "measure", "reading",
          "morning", "receipt", "balance", "payment", "stapler", "lighter", "burning", "diploma",
-         "pathway", "antenna", "falconer", "finally", "police", "husband", "flipper",  "crimson", ]
+         "pathway", "antenna", "finally", "husband", "flipper",  "crimson"]
 
 Eight = ["shoulder", "hibiscus", "transfer", "telepath", "scramble", "solution", "children",
          "glycerin", "keyboard", "gasolene", "windmill", "burgandy", "terminal", "bookcase",
          "digitize", "scissors", "baseball", "football", "lacrosse", "untitled", "purified",
          "computer", "calipers", "cucumber", "recharge", "purchase", "customer", "pedestal",
-         "mushroom", "announce", "lifetime", ]
+         "mushroom", "announce", "lifetime", "falconer",  "shortcut"]
 
-def count():
-    for i in range(0, len(Eight)):
-        word = len(Eight[i])
-        if word != 8:
-            print(Eight[i])
-    print(len(Eight))
+def count(var, num):
+    for i in range(0, len(var)):
+        word = len(var[i])
+        if word != num:
+            print(var[i])
+    print(len(var))
 
 def Winner():
     print(" CONGRATULATIONS YOU WON YOU SMARTY YOU!!!")
@@ -66,14 +66,14 @@ def doesExist(word, guess):
     print(set(similar))
 
 
-def gameFive():
-    print("This is Game Five")
-    pick = Five[random.randint(0, len(Five))]
+def gameStart(variable, number):
+    print(f"This is Game {number}")
+    pick = variable[random.randint(0, len(variable))]
     i = 1
     while True:
         C1 = input(f"What is Guess {i}? ")
-        if len(C1) < 5 or len(C1) > 5:
-            C1 = input("Please guess a five letter word!")
+        if len(C1) < number or len(C1) > number:
+            C1 = input(f"Please guess a {variable} letter word!")
         i = i + 1
         check1 = checkIt(pick, C1)
         doesExist(pick, C1)
@@ -86,84 +86,24 @@ def gameFive():
     print(check1)
     shallBegin()
 
-def gameSix():
-    print("This is Game Six")
-    pick = Six[random.randint(0, len(Six))]
-    i = 1
-    while True:
-        C1 = input(f"What is Guess {i}? ")
-        if len(C1) < 6 or len(C1) > 6:
-            C1 = input("Please guess a six letter word!")
-        i = i + 1
-        check1 = checkIt(pick, C1)
-        doesExist(pick, C1)
-        if C1 == pick:
-            Winner()
-            break
-        if i == 7:
-            break
-    print(pick)
-    print(check1)
-    shallBegin()
-
-
-def gameSeven():
-    print("This is Game Seven")
-    pick = Seven[random.randint(0, len(Seven))]
-    i = 1
-    while True:
-        C1 = input(f"What is Guess {i}? ")
-        if len(C1) < 7 or len(C1) > 7:
-            C1 = input("Please guess a seven letter word!")
-        i = i + 1
-        check1 = checkIt(pick, C1)
-        doesExist(pick, C1)
-        if C1 == pick:
-            Winner()
-            break
-        if i == 7:
-            break
-    print(pick)
-    print(check1)
-    shallBegin()
-
-def gameEight():
-    print("This is Game Eight")
-    pick = Eight[random.randint(0, len(Eight))]
-    i = 1
-    while True:
-        C1 = input(f"What is Guess {i}? ")
-        if len(C1) < 8 or len(C1) > 8:
-            C1 = input("Please guess a eight letter word!")
-        i = i + 1
-        check1 = checkIt(pick, C1)
-        doesExist(pick, C1)
-        if C1 == pick:
-            Winner()
-            break
-        if i == 7:
-            break
-    print(pick)
-    print(check1)
-    shallBegin()
 
 def shallBegin():
     Start = input("Welcome to Wordleleler... I guess, Choose a Number From 5 - 8 to Start!! ")
     Start = Start.lower()
     if Start == ("5"):
-        gameFive()
+        gameStart(Five, 5)
     elif Start == ("6"):
-        gameSix()
+        gameStart(Six, 6)
     elif Start == ("7"):
-        gameSeven()
+        gameStart(Seven, 7)
     elif Start == ("8"):
-        gameEight()
+        gameStart(Eight, 8)
     elif Start == ("exit"):
         print("GOODBYE!!")
     else:
         shallBegin()
 
-'count()'
+"count(Five, 5)"
 shallBegin()
 
 
