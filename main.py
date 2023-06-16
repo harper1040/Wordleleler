@@ -59,11 +59,13 @@ def doesExist(word, guess):
     for i in range(0, len(guess)):
         a = 0
         for l in word:
-            if l == guess[i]:
+            if l == guess[i] and word[i] != guess[i]:
                 similar.append(word[a])
 
             a = a + 1
-    print(set(similar))
+    if set(similar) != set():
+        print("In Wrong Position!")
+        print(set(similar))
 
 
 def gameStart(variable, number):
