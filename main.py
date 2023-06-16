@@ -71,8 +71,8 @@ def count(var, num):
 
 def Winner():
     print(" CONGRATULATIONS YOU WON YOU SMARTY YOU!!!")
-    webbrowser.open('https://media0.giphy.com/media/tCV2LrPPYfqCY/giphy.gif?cid=ecf05e47hx1or12u1gwpxz2ma3scbkcsdjwala489l14ayr7&ep=v1_gifs_search&rid=giphy.gif&ct=g')
-
+"""    webbrowser.open('https://media0.giphy.com/media/tCV2LrPPYfqCY/giphy.gif?cid=ecf05e47hx1or12u1gwpxz2ma3scbkcsdjwala489l14ayr7&ep=v1_gifs_search&rid=giphy.gif&ct=g')
+"""
 def checkIt(word, guess):
     checked = []
     for i in range(0, len(guess)):
@@ -105,7 +105,7 @@ def gameStart(variable, number):
     while True:
         C1 = input(f"What is Guess {i}? ")
         if len(C1) < number or len(C1) > number:
-            C1 = input(f"Please guess a {variable} letter word!")
+            C1 = input(f"Please guess a {number} letter word!")
         i = i + 1
         check1 = checkIt(pick, C1)
         doesExist(pick, C1)
