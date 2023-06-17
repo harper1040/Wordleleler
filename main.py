@@ -17,7 +17,7 @@ Five = ['about', 'other', 'which', 'their', 'there', 'first', 'would', 'these', 
         'hobby', 'glove', 'towel', 'space', 'demon', 'angel', 'world', 'touch', 'cable', 'lunch',
         'feast', 'plate', 'trash', 'green', 'mauve', 'digit', 'money', 'index', 'audio', 'focus',
         'alpha', 'clear', 'media', 'steam', 'water', 'broom', 'brush', 'clean', 'power', 'sword',
-        'glory', 'daisy', 'flame', 'brick', 'spicy']
+        'glory', 'daisy', 'flame', 'brick', 'spicy', "boner"]
 
 Six = ['search', 'online', 'people', 'health', 'should', 'system', 'policy', 'number', 'please', 'rights',
        'public', 'school', 'review', 'united', 'center', 'travel', 'report', 'member', 'before', 'hotels',
@@ -53,15 +53,26 @@ Seven = ['contact', 'service', 'product', 'support', 'message', 'through', 'priv
          'network', 'connect', 'printer', 'program', 'sawdust', 'android', 'propane', 'monitor', 'fallout',
          'digital', 'plywood', 'upgrade', 'browser', 'dolphin', 'project', 'display', 'malware', 'charger',
          'cleaner', 'measure', 'reading', 'morning', 'receipt', 'balance', 'payment', 'stapler', 'lighter',
-         'burning', 'diploma', 'pathway', 'antenna', 'finally', 'husband', 'flipper', 'crimson']
+         'burning', 'diploma', 'pathway', 'antenna', 'finally', 'husband', 'flipper', 'crimson', "arduous"]
 
 
-Eight = ["shoulder", "hibiscus", "transfer", "telepath", "scramble", "solution", "children",
-         "glycerin", "keyboard", "gasolene", "windmill", "burgandy", "terminal", "bookcase",
-         "digitize", "scissors", "baseball", "football", "lacrosse", "untitled", "purified",
-         "computer", "calipers", "cucumber", "recharge", "purchase", "customer", "pedestal",
-         "mushroom", "announce", "lifetime", "falconer",  "shortcut"]
+Eight = ['business', 'services', 'products', 'software', 'research', 'comments', 'national', 'internet', 'shipping',
+         'reserved', 'security', 'american', 'computer', 'download', 'pictures', 'personal', 'location', 'children',
+         'students', 'shopping', 'previous', 'property', 'customer', 'december', 'training', 'advanced', 'category',
+         'register', 'november', 'features', 'industry', 'provided', 'required', 'articles', 'feedback', 'complete',
+         'standard', 'programs', 'language', 'password', 'question', 'building', 'february', 'analysis', 'possible',
+         'problems', 'interest', 'learning', 'delivery', 'original', 'includes', 'messages', 'provides', 'specific',
+         'director', 'planning', 'database', 'official', 'district', 'calendar', 'resource', 'document', 'material',
+         'together', 'function', 'economic', 'projects', 'included', 'received', 'archives', 'magazine', 'policies',
+         'position', 'listings', 'wireless', 'purchase', 'response', 'practice', 'hardware', 'designed', 'discount',
+         'remember', 'increase', 'european', 'activity', 'although', 'contents', 'regional', 'supplies', 'exchange',
+         'continue', 'benefits', 'anything', 'mortgage', 'solution', 'addition', 'clothing', 'military', 'decision',
+         'division', 'shoulder', 'hibiscus', 'transfer', 'telepath', 'scramble', 'solution', 'children', 'glycerin',
+         'keyboard', 'gasoline', 'windmill', 'burgundy', 'terminal', 'bookcase', 'digitize', 'scissors', 'baseball',
+         'football', 'lacrosse', 'untitled', 'purified', 'computer', 'calipers', 'cucumber', 'recharge', 'purchase',
+         'customer', 'pedestal', 'mushroom', 'announce', 'lifetime', 'falconer', 'shortcut']
 
+# Word checking method to verify word length and number of words in a list.
 def count(var, num):
     for i in range(0, len(var)):
         word = len(var[i])
@@ -69,10 +80,12 @@ def count(var, num):
             print(var[i])
     print(len(var))
 
+# Ran to display a win if player finds the word.
 def Winner():
     print(" CONGRATULATIONS YOU WON YOU SMARTY YOU!!!")
-"""    webbrowser.open('https://media0.giphy.com/media/tCV2LrPPYfqCY/giphy.gif?cid=ecf05e47hx1or12u1gwpxz2ma3scbkcsdjwala489l14ayr7&ep=v1_gifs_search&rid=giphy.gif&ct=g')
-"""
+    #webbrowser.open('https://media0.giphy.com/media/tCV2LrPPYfqCY/giphy.gif?cid=ecf05e47hx1or12u1gwpxz2ma3scbkcsdjwala489l14ayr7&ep=v1_gifs_search&rid=giphy.gif&ct=g')
+
+# This compares the guess made to the word chosen and provides a list of letters in the right spot and slashes if not.
 def checkIt(word, guess):
     checked = []
     for i in range(0, len(guess)):
@@ -84,6 +97,7 @@ def checkIt(word, guess):
 
     return(checked)
 
+# This checks to see if a letter in the guess is in the chosen word. Returns letters that are in the word but not in the right position.
 def doesExist(word, guess):
     similar = []
     for i in range(0, len(guess)):
@@ -98,6 +112,8 @@ def doesExist(word, guess):
         print(set(similar))
 
 
+# This starts the game loop. It takes in the variable or word list and the chosen game number. Then it picks a random
+# word from the numbered list and asks for up to 6 guesses.
 def gameStart(variable, number):
     print(f"This is Game {number}")
     pick = variable[random.randint(0, len(variable))]
@@ -119,6 +135,7 @@ def gameStart(variable, number):
     shallBegin()
 
 
+# This method allows a player to choose which number of letters their word has in it.
 def shallBegin():
     Start = input("Welcome to Wordleleler... I guess, Choose a Number From 5 - 8 to Start!! ")
     Start = Start.lower()
