@@ -1,6 +1,3 @@
-import random
-import webbrowser
-
 Five = ['about', 'other', 'which', 'their', 'there', 'first', 'would', 'these', 'click', 'price',
         'state', 'email', 'world', 'music', 'after', 'video', 'where', 'books', 'links', 'years',
         'order', 'items', 'group', 'under', 'games', 'could', 'great', 'hotel', 'store', 'terms',
@@ -72,99 +69,13 @@ Eight = ['business', 'services', 'products', 'software', 'research', 'comments',
          'football', 'lacrosse', 'untitled', 'purified', 'computer', 'calipers', 'cucumber', 'recharge', 'purchase',
          'customer', 'pedestal', 'mushroom', 'announce', 'lifetime', 'falconer', 'shortcut']
 
-loser = "GOOD JOB YOU LOST... WE CAN\'T WIN EM ALL AND YOU DIDN\'T WIN THIS ONE. THAT\'S OK THOUGH IT\'S JUST A GAME AND YOU CAN AND SHOULD PLAY AGAIN :D!!!"
+loser = "GOOD JOB YOU LOST... WE CAN\'T WIN EM ALL AND YOU DIDN\'T WIN THIS ONE. THAT\'S OK THOUGH IT\'S JUST A GAME AND " \
+        "YOU CAN AND SHOULD PLAY AGAIN :D!!!"
 
-# Word checking method to verify word length and number of words in a list.
-def count(var, num):
-    for i in range(0, len(var)):
-        word = len(var[i])
-        if word != num:
-            print(var[i])
-    print(len(var))
+intro = "Welcome to wordleleler the shameless knock off of another game :D. " \
+        "Come and play a game based around the one subject most of us hated in high school," \
+        "YAY! Vocabulaly. Psshh forget spelling ;). Seriously though spell thing correctly " \
+        "in game."
 
-# Ran to display a win if player finds the word.
-def Winner():
-    print(" CONGRATULATIONS YOU WON YOU SMARTY YOU!!!")
-    #webbrowser.open('https://media0.giphy.com/media/tCV2LrPPYfqCY/giphy.gif?cid=ecf05e47hx1or12u1gwpxz2ma3scbkcsdjwala489l14ayr7&ep=v1_gifs_search&rid=giphy.gif&ct=g')
-
-def Loser():
-    print(loser)
-
-# This compares the guess made to the word chosen and provides a list of letters in the right spot and slashes if not.
-def checkIt(word, guess):
-    checked = []
-    for i in range(0, len(guess)):
-        if word[i] == guess[i]:
-            checked.append(guess[i])
-        else:
-            checked.append("/")
-    print('')
-    print("YOUR GUESS --- ", checked)
-
-    return(checked)
-
-# This checks to see if a letter in the guess is in the chosen word. Returns letters that are in the word but not in the right position.
-def doesExist(word, guess):
-    similar = []
-    for i in range(0, len(guess)):
-        a = 0
-        for l in word:
-            if l == guess[i] and word[i] != guess[i]:
-                similar.append(word[a])
-
-            a = a + 1
-    if set(similar) != set():
-        print("In Wrong Position!")
-        print(set(similar))
-
-
-# This starts the game loop. It takes in the variable or word list and the chosen game number. Then it picks a random
-# word from the numbered list and asks for up to 6 guesses.
-def gameStart(variable, number):
-    print(f"This is Game {number}")
-    pick = variable[random.randint(0, len(variable))]
-    i = 1
-    while True:
-        C1 = input(f"What is Guess {i}? ")
-        if len(C1) < number or len(C1) > number:
-            C1 = input(f"Please guess a {number} letter word!")
-        i = i + 1
-        check1 = checkIt(pick, C1)
-        doesExist(pick, C1)
-        if C1 == pick:
-            Winner()
-            break
-        if i == 7:
-            Loser()
-            break
-    final = pick.upper
-    print('')
-    print("THE WORD WAS - " + pick)
-    print("")
-    #print(check1)
-    shallBegin()
-
-
-# This method allows a player to choose which number of letters their word has in it.
-def shallBegin():
-    Start = input("Welcome to Wordleleler... I guess, Choose a Number From 5 - 8 to Start!! ")
-    Start = Start.lower()
-    if Start == ("5"):
-        gameStart(Five, 5)
-    elif Start == ("6"):
-        gameStart(Six, 6)
-    elif Start == ("7"):
-        gameStart(Seven, 7)
-    elif Start == ("8"):
-        gameStart(Eight, 8)
-    elif Start == ("exit"):
-        print("GOODBYE!!")
-    else:
-        shallBegin()
-
-#count(Seven, 7)
-#shallBegin()
-
-
-
-
+alpha = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x',
+                 'c', 'v','b', 'n', 'm', '< BACK']
