@@ -50,7 +50,8 @@ Seven = ['contact', 'service', 'product', 'support', 'message', 'through', 'priv
          'network', 'connect', 'printer', 'program', 'sawdust', 'android', 'propane', 'monitor', 'fallout',
          'digital', 'plywood', 'upgrade', 'browser', 'dolphin', 'project', 'display', 'malware', 'charger',
          'cleaner', 'measure', 'reading', 'morning', 'receipt', 'balance', 'payment', 'stapler', 'lighter',
-         'burning', 'diploma', 'pathway', 'antenna', 'finally', 'husband', 'flipper', 'crimson', "arduous"]
+         'burning', 'diploma', 'pathway', 'antenna', 'finally', 'husband', 'flipper', 'crimson', 'arduous', 'suspect',
+         'lolipop']
 
 
 Eight = ['business', 'services', 'products', 'software', 'research', 'comments', 'national', 'internet', 'shipping',

@@ -3,7 +3,6 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 from PIL import ImageTk
-import Engine as eng
 import Wordlists as wrls
 
 gameRow = 0
@@ -13,6 +12,17 @@ gameNum = 0
 guessWord = []
 ranWord = []
 
+
+class GameAnswer(ttk.Frame):
+    def __init__(self, parent, num, row, col, color):
+        super().__init__(master=parent)
+
+        self.rowconfigure(0, weight=1)
+        self.columnconfigure((0, 1, 2), weight=1)
+        ttk.Label(self, text=str(num), font='seraph 14', justify=CENTER, background=color, border=1, relief='solid', width=5).grid(row=0, column=0)
+
+        self.grid(row=row, column=col, padx=20, pady=20)
+
 # Layout for the play field where you word guesses go.
 class GameBoard(ttk.Frame):
         def __init__(self, parent, num, row, col):
@@ -20,9 +30,21 @@ class GameBoard(ttk.Frame):
 
                 self.rowconfigure(0, weight=1)
                 self.columnconfigure((0, 1, 2), weight=1)
-                ttk.Button(self, text=str(num)).grid(row=0, column=0)
+                ttk.Label(self, text=num, font='seraph 14', justify=CENTER, border=1, relief="solid",width=5).grid(row=0, column=0)
 
-                self.grid(row=row, column=col)
+                self.grid(row=row, column=col, padx=20, pady=20)
+
+
+class f(ttk.Frame):
+    def __init__(self, parent, num, row, col):
+        super().__init__(master=parent)
+
+        self.rowconfigure(0, weight=1)
+        self.columnconfigure((0, 1, 2), weight=1)
+        ttk.Button(self, text=str(num),image=w, command=lambda: alphaCom(num)).grid(row=0, column=0)
+
+        self.grid(row=row, column=col, padx=3, pady=2)
+
 
 # Layout for the keyboard.
 class KeyBoard(ttk.Frame):
@@ -33,7 +55,52 @@ class KeyBoard(ttk.Frame):
         self.columnconfigure((0, 1, 2), weight=1)
         ttk.Button(self, text=str(num), command=lambda: alphaCom(num)).grid(row=0, column=0)
 
-        self.grid(row=row, column=col)
+        self.grid(row=row, column=col, padx=3, pady=2)
+
+
+# This will run multiple checks to verify a letters existence and position in the ranWord. This it will color in the
+# appropriate word with the right color to tell the player what is and isn't in the word as well as what is there but in
+# the wrong place.
+def infoColor(guess, ranWord, Round):
+    green = []
+    yellow = []
+    grey = []
+    gray = []
+    check = []
+    for i in range(0, len(guess)):
+        if guess[i] == ranWord[i]:
+            GameAnswer(gameWindow, guess[i], Round, i, "green")
+            print(guess[i] + ' green ' + str(i))
+            green.append(guess[i])
+            for a in wrls.alpha:
+                pass
+        else:
+            for l in ranWord:
+                if l == guess[i]:
+                    check.append(guess[i])
+
+                else:
+                    grey.append(guess[i])
+
+    for i in set(grey):
+        gray.append(i)
+    for i in set(check):
+        yellow.append(i)
+    for i in yellow:
+        for l in gray:
+            if i == l:
+                gray.remove(l)
+    for i in range(0, len(guess)):
+        for l in yellow:
+            if l == guess[i]:
+                GameAnswer(gameWindow, guess[i], Round, i, "yellow")
+                print(guess[i] + " Yellow " + str(i))
+    for i in range(0, len(guess)):
+        for l in gray:
+            if l == guess[i]:
+                GameAnswer(gameWindow, guess[i], Round, i, "grey")
+                print(guess[i] + " Gray " + str(i))
+
 
 # Yay the player figured out the word and gets to take a victory lap in the form of a pop up. *golf clap*
 def Winner():
@@ -80,17 +147,19 @@ def checkGuess():
         isRight(guessWord)
         loser()
     else:
-        Round +=1
-        gameCol = -1
-        print(guessWord)
+        isRight(guessWord)
+        try:
+            infoColor(guessWord, ranWord, Round)
+            Round +=1
+            gameCol = -1
+            print(guessWord)
             #if win == guessWord:
             #    pass
-        isRight(guessWord)
-        guessWord = []
-        try:
-            tk.Button(gameWindow, text='NOT A WORD', state=DISABLED, background="red").grid(row=8, column=3)
+
+            tk.Button(gameWindow, image=no, state=DISABLED).grid(row=8, column=4)
         except:
             pass
+    guessWord = []
 
 # Check if the word guessed is in the list of words.
 def isReal():
@@ -104,7 +173,7 @@ def isReal():
     print(guessWord)
     for i in numList:
         if i == guessWord:
-            tk.Button(gameWindow, text='  SUBMIT  ', command=checkGuess).grid(row=8, column=3)
+            tk.Button(gameWindow, image=sub, command=checkGuess).grid(row=8, column=4)
 
 # Used to tell the keyboard what to do when you click a letter or Back.
 def alphaCom(letter):
@@ -128,7 +197,7 @@ def alphaCom(letter):
             gameCol -= 1
             GameBoard(gameWindow, ' ', Round, gameCol)
             guessWord.pop()
-            tk.Button(gameWindow, text='NOT A WORD', state=DISABLED, background="red").grid(row=8, column=3)
+            tk.Button(gameWindow, image=no, state=DISABLED).grid(row=8, column=4)
 
         elif letter == '< BACK':
             gameCol -= 1
@@ -162,25 +231,45 @@ def createGame(variable, num):
         global gameNum
         global gameCol
         global numList
+        global Round
+        global gameCol
+        global guessWord
+        guessWord = []
         gameNum = num
         numList = variable
+        Round = 0
+        gameCol = 0
+
 
         def pickWord():
             global ranWord
             pick = variable[random.randint(0, len(variable))]
             ranWord = pick
             print(ranWord)
-            #pop = random.randint(0, 6)
-            #pop2 = random.randint(0, 6)
-            #GameBoard(gameWindow, 'pop', pop2, pop)
 
 
         def Playfield():
                 for c in range(0, num):
                         for r in range(0, 6):
-                                GameBoard(gameWindow, num, r, c)
+                                GameBoard(gameWindow, ' ', r, c)
                                 #print(r)
 
+        def Padding():
+            c = 0
+            r = 0
+            skip = True
+            while skip:
+                GameBoard(gameWindow, ' ', r, c)
+                r += 1
+                if r == 12 and c == 11:
+                    r = 0
+                    c = 12
+                elif r == 12 and c == 1:
+                    r = 0
+                    c = 11
+                elif r == 12:
+                    r = 0
+                    c = 1
 
         def Keyboard():
                 c = 0
@@ -205,7 +294,7 @@ def createGame(variable, num):
         Playfield()
         Keyboard()
         #print(num)
-        tk.Button(gameWindow, text='NOT A WORD', state=DISABLED, background="red").grid(row=8, column=3)
+        tk.Button(gameWindow, image=no, state=DISABLED).grid(row=8, column=4)
 
 
 
@@ -217,6 +306,9 @@ root.configure(background='blue')
 
 img = ImageTk.PhotoImage(file='Media/wordleleler1.png')
 img2 = ImageTk.PhotoImage(file='Media/words2.png')
+no = PhotoImage(file='Media/NoButton.png')
+sub = PhotoImage(file='Media/SubmitButton.png')
+w = PhotoImage(file='Media/NoButton.png')
 
 labelPic = tk.Label(root, image=img)
 labelPic.pack()
