@@ -1,10 +1,11 @@
 import random
 import webbrowser
+import cv2
 
 Five = ['about', 'other', 'which', 'their', 'there', 'first', 'would', 'these', 'click', 'price',
         'state', 'email', 'world', 'music', 'after', 'video', 'where', 'books', 'links', 'years',
         'order', 'items', 'group', 'under', 'games', 'could', 'great', 'hotel', 'store', 'terms',
-        'right', 'local', 'those', 'using', 'phone', 'forum', 'based', 'black', 'check', 'index',
+        'right', 'local', 'those', 'using', 'phone', 'forum', 'based', 'black', 'check',
         'being', 'women', 'today', 'south', 'pages', 'found', 'house', 'photo', 'power', 'while',
         'three', 'total', 'place', 'think', 'north', 'posts', 'media', 'since', 'guide', 'board',
         'white', 'small', 'times', 'sites', 'level', 'hours', 'image', 'title', 'shall', 'class',
@@ -12,7 +13,7 @@ Five = ['about', 'other', 'which', 'their', 'there', 'first', 'would', 'these', 
         'stock', 'point', 'sales', 'large', 'table', 'start', 'model', 'human', 'movie', 'march',
         'yahoo', 'going', 'study', 'staff', 'again', 'april', 'never', 'users', 'topic', 'below',
         'anime', 'stand', 'drive', 'grass', 'trees', 'doors', 'notes', 'shelf', 'truck', 'phone',
-        'drill', 'alarm', 'light', 'board', 'mower', 'sport', 'chain', 'table', 'video', 'molar',
+        'drill', 'alarm', 'light', 'board', 'mower', 'sport', 'chain', 'table', 'molar',
         'radio', 'house', 'paint', 'total', 'cycle', 'motor', 'first', 'third', 'fifth', 'rouge',
         'hobby', 'glove', 'towel', 'space', 'demon', 'angel', 'world', 'touch', 'cable', 'lunch',
         'feast', 'plate', 'trash', 'green', 'mauve', 'digit', 'money', 'index', 'audio', 'focus',
@@ -86,6 +87,22 @@ def count(var, num):
 def Winner():
     print(" CONGRATULATIONS YOU WON YOU SMARTY YOU!!!")
     #webbrowser.open('https://media0.giphy.com/media/tCV2LrPPYfqCY/giphy.gif?cid=ecf05e47hx1or12u1gwpxz2ma3scbkcsdjwala489l14ayr7&ep=v1_gifs_search&rid=giphy.gif&ct=g')
+    vid = cv2.VideoCapture('Media/RDJThumbs.mp4')
+
+    if (vid.isOpened() == False):
+        print("Video Fail")
+
+    while (vid.isOpened()):
+        ret, frame = vid.read()
+        if ret:
+            cv2.imshow('Frame', frame)
+            if cv2.waitKey(25) & 0xFF == ord('q'):
+                break
+        else:
+            break
+    input()
+    vid.release()
+    cv2.destroyAllWindows()
 
 def Loser():
     print(loser)
@@ -98,10 +115,8 @@ def checkIt(word, guess):
             checked.append(guess[i])
         else:
             checked.append("/")
-    print('')
+    print("\n")
     print("YOUR GUESS --- ", checked)
-
-    return(checked)
 
 # This checks to see if a letter in the guess is in the chosen word. Returns letters that are in the word but not in the right position.
 def doesExist(word, guess):
@@ -121,49 +136,51 @@ def doesExist(word, guess):
 # This starts the game loop. It takes in the variable or word list and the chosen game number. Then it picks a random
 # word from the numbered list and asks for up to 6 guesses.
 def gameStart(variable, number):
-    print(f"This is Game {number}")
+    print(f"This is a Game of {number}")
     pick = variable[random.randint(0, len(variable))]
-    i = 1
+    count = 1
+    #print(pick)
     while True:
-        C1 = input(f"What is Guess {i}? ")
+        C1 = input(f"What is Guess {count}? ")
         if len(C1) < number or len(C1) > number:
             C1 = input(f"Please guess a {number} letter word!")
-        i = i + 1
-        check1 = checkIt(pick, C1)
+        count = count + 1
+        checkIt(pick, C1)
         doesExist(pick, C1)
         if C1 == pick:
             Winner()
             break
-        if i == 7:
+        if count == 7:
             Loser()
             break
-    final = pick.upper
-    print('')
-    print("THE WORD WAS - " + pick)
-    print("")
+    final = pick.upper()
+    print("\n")
+    print(f"THE WORD WAS - {pick}")
+    print("\n")
     #print(check1)
-    shallBegin()
 
 
 # This method allows a player to choose which number of letters their word has in it.
-def shallBegin():
-    Start = input("Welcome to Wordleleler... I guess, Choose a Number From 5 - 8 to Start!! ")
-    Start = Start.lower()
-    if Start == ("5"):
-        gameStart(Five, 5)
-    elif Start == ("6"):
-        gameStart(Six, 6)
-    elif Start == ("7"):
-        gameStart(Seven, 7)
-    elif Start == ("8"):
-        gameStart(Eight, 8)
-    elif Start == ("exit"):
-        print("GOODBYE!!")
-    else:
-        shallBegin()
+def Main():
+    while True:
+        Start = input("\nWelcome to Wordleleler... I guess, Choose a Number From 5 - 8 to Start!! ").lower()
+        if Start == ("5"):
+            gameStart(Five, 5)
+        elif Start == ("6"):
+            gameStart(Six, 6)
+        elif Start == ("7"):
+            gameStart(Seven, 7)
+        elif Start == ("8"):
+            gameStart(Eight, 8)
+        elif Start == ("q"):
+            print("GOODBYE!!")
+            return
+        else:
+            print("Please choose a valid option!")
+        
 
 #count(Seven, 7)
-#shallBegin()
+Main()
 
 
 
